@@ -12,7 +12,7 @@ class RecipeBoxUser(ApplicationUser):
     """
 
     def __init__(self, user_id=None, name=None, password=None, email=None):
-        super().__init__(self, user_id=user_id, name=name, password=password, email=email)
+        super().__init__(user_id=user_id, name=name, password=password, email=email)
         self.recipes = None
 
 

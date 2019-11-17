@@ -7,12 +7,12 @@ import Navigation from './layout/Navigation';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-    const isLoggedIn = true;
+    const isLoggedIn = false;
 
     let navigationElem = isLoggedIn ? <Navigation /> : null;
 
     return (
-        <div className="App">
+        <div className="app">
             <Header isLoggedIn={isLoggedIn} />
             {navigationElem}
             <div className="main_content">
