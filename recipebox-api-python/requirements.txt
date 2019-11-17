@@ -1,0 +1,7 @@
+flask
+flask-restful
+flask-cors
+pyjwt
+mysql-connector-python
+jsonpickle
+bcrypt
