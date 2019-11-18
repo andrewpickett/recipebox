@@ -1,4 +1,4 @@
-from pd_security.models import ApplicationUser
+from pdsecurity.models import ApplicationUser
 
 
 class RecipeBoxUser(ApplicationUser):

@@ -3,7 +3,7 @@ from flask_cors import CORS
 
 from main import app
 from recipebox_api.security import RecipeBoxAuthenticator
-from pd_security.jwt_utils import protect_with_jwt
+from pdsecurity.jwt_utils import protect_with_jwt
 
 from config import config
 

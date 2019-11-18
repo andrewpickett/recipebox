@@ -1,10 +1,4 @@
 config = {
-    'jwt': {
-        'secret_key': 'MySuperSecretKey',
-        'expire_seconds': 3600,
-        'algorithm': 'HS512',
-        'issuer': 'ProfoundDistortion'
-    },
     'database': {
         'username': 'root',
         'password': 'abcd.1234',

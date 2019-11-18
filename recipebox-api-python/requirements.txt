@@ -5,3 +5,4 @@ pyjwt
 mysql-connector-python
 jsonpickle
 bcrypt
+pdsecurity

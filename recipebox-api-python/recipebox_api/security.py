@@ -1,5 +1,5 @@
-from pd_security.models import ApplicationUser
-from pd_security.security import JwtBcryptAuthenticator
+from pdsecurity.models import ApplicationUser
+from pdsecurity.security import JwtBcryptAuthenticator
 
 import bcrypt
 
