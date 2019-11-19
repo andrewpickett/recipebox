@@ -3,12 +3,14 @@ import './Header.css';
 
 function Header(props) {
 
-    let buttons = <button type="button" className="btn btn-outline-secondary btn-sm">Sign Out</button>
+    let buttons = <div>
+		 <span>Hello, user!</span> <a className="btn btn-outline-secondary btn-sm" href="logout" role="button">Sign Out</a>
+	 </div>
     if (!props.isLoggedIn) {
         buttons = <div>
-            <button type="button" className="btn btn-outline-secondary btn-sm">Sign In</button>
+            <a className="btn btn-outline-secondary btn-sm" href="/login" role="button">Sign In</a>
             &nbsp;
-            <button type="button" className="btn btn-outline-secondary btn-sm">Sign Up</button>
+            <a className="btn btn-outline-secondary btn-sm" href="/logout" role="button">Sign Up</a>
         </div>
     }
     return (
