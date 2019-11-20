@@ -1,9 +1,7 @@
-from pdsecurity.models import ApplicationUser
+import bcrypt
 from pdsecurity.security import JwtBcryptAuthenticator
 
 import recipebox_api.services
-
-import bcrypt
 
 
 class RecipeBoxAuthenticator(JwtBcryptAuthenticator):
@@ -12,3 +10,4 @@ class RecipeBoxAuthenticator(JwtBcryptAuthenticator):
 		password = 'darkstar'.encode('utf-8')
 		password = (bcrypt.hashpw(password, bcrypt.gensalt())).decode('utf-8')
 		return recipebox_api.services.perform_login(name, password)
+

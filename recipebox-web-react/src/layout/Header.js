@@ -2,10 +2,11 @@ import React from "react";
 import './Header.css';
 
 function Header(props) {
-
     let buttons = <div className="my-auto align-middle">
-		 <span className="small">Hello, user!</span> <a className="btn btn-outline-secondary btn-sm" href="logout" role="button">Sign Out</a>
-	 </div>
+		 <span className="small pr-4">Hello, {props.userName ? props.userName : 'User'}!</span>
+		 <a className="btn btn-outline-secondary btn-sm" href="/logout" role="button">Sign Out</a>
+	 </div>;
+
     if (!props.isLoggedIn) {
         buttons = <div>
             <a className="btn btn-outline-secondary btn-sm" href="/login" role="button">Sign In</a>
@@ -13,6 +14,7 @@ function Header(props) {
             <a className="btn btn-outline-secondary btn-sm" href="/logout" role="button">Sign Up</a>
         </div>
     }
+
     return (
         <header className="app-header">
             <div className="container">

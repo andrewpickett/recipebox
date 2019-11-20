@@ -15,7 +15,7 @@ class Recipes extends React.Component {
 	componentDidMount() {
 		axios.post('/recipes', {}, { headers: auth.getAuthHeader() })
 			.then(response => {
-				const listItems = response.data.map((d) => <RecipeItem recipe={d} />);
+				const listItems = response.data.map((d) => <RecipeItem key={d.id} recipe={d} />);
 				this.setState({recipes: listItems});
 		});
 	}
@@ -28,7 +28,7 @@ class Recipes extends React.Component {
 						&nbsp;
 					</div>
 					<div className="col-sm text-right my-auto p-2">
-						<a className="btn btn-primary btn-sm" href="#" role="button">+ New</a>
+						<a className="btn btn-primary btn-sm" href="/recipes/create" role="button">+ New</a>
 					</div>
 				</div>
 				{ this.state.recipes }

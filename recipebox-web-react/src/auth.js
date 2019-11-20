@@ -23,9 +23,10 @@ export default {
 		axios.post('/login', creds, config.AXIOS_CONFIG)
 			.then(response => {
 				sessionStorage.setItem(config.JWT_STORAGE_KEY, response.headers.authorization);
+				sessionStorage.setItem(config.USER_STORAGE_KEY, response.data['name']);
+				console.log(response.data['name']);
 				axios.defaults.headers.post['Authorization'] = response.headers.authorization;
 				this.user.authenticated = true;
-				console.log("successful!");
 
 				if (redirect) {
 					window.location = redirect;
@@ -38,6 +39,7 @@ export default {
 
 	logout() {
 		sessionStorage.removeItem(config.JWT_STORAGE_KEY);
+		sessionStorage.removeItem(config.USER_STORAGE_KEY);
 		this.user.authenticated = false;
 		this.user.admin = false;
 		window.location = '/';

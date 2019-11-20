@@ -1,13 +1,12 @@
+import jsonpickle
 from flask import redirect, request, make_response
 from flask_cors import CORS
+from pdsecurity.jwt_utils import protect_with_jwt, get_jwt_object_from_request, _parse_jwt_token
 
-from main import app
-from recipebox_api.security import RecipeBoxAuthenticator
 import recipebox_api.services
-import jsonpickle
-from pdsecurity.jwt_utils import protect_with_jwt
-
+from main import app
 from pdsecurity_config import pdsecurity_config
+from recipebox_api.security import RecipeBoxAuthenticator
 
 CORS(app, supports_credentials=True, expose_headers=["Authorization", "WWW-Authenticate"])
 
@@ -19,16 +18,26 @@ def register_user():
 
 @app.route('/login', methods=['POST'])
 def perform_login():
-	resp = make_response("")
 	try:
 		authenticator = RecipeBoxAuthenticator(pdsecurity_config['jwt'])
 		jwt_token = authenticator.login(request.json["name"], request.json["password"].encode("utf-8"))
+		jwt_obj = _parse_jwt_token(jwt_token)
+		resp = make_response(jsonpickle.encode(recipebox_api.services.get_user_by_id(jwt_obj['userId'])))
 		resp.headers["Authorization"] = str(jwt_token)
 	except PermissionError:
 		resp = make_response("Invalid credentials", 401)
 	except TypeError:
 		resp = make_response("Something went horribly wrong", 500)
 	return resp
+
+
+# @app.route('/user', methods=['GET'])
+# @protect_with_jwt
+# def get_user_by_id():
+# 	jwt_obj = get_jwt_object_from_request(request)
+# 	if jwt_obj and jwt_obj['userId']:
+# 		return recipebox_api.services.get_user_by_id(jwt_obj['userId'])
+# 	return make_response("Couldn't get user", 500)
 
 
 @app.route('/recipes', methods=['POST'])
