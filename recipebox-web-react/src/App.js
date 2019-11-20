@@ -5,19 +5,22 @@ import {
 	Route
 } from "react-router-dom";
 
-import './App.css';
+// Pages
 import Footer from './layout/Footer';
 import Header from './layout/Header';
 import Navigation from './layout/Navigation';
 import Home from './pages/Home/Home';
 import Planner from './pages/Planner/Planner';
 import Recipes from './pages/Recipes/Recipes';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Shopping from "./pages/Shopping/Shopping";
 import Login from "./pages/Login/Login";
 
+// Utilities
 import auth from './auth';
-import Shopping from "./pages/Shopping/Shopping";
+
+// CSS
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 	auth.checkAuth();

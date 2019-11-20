@@ -3,8 +3,8 @@ import './Header.css';
 
 function Header(props) {
 
-    let buttons = <div>
-		 <span>Hello, user!</span> <a className="btn btn-outline-secondary btn-sm" href="logout" role="button">Sign Out</a>
+    let buttons = <div className="my-auto align-middle">
+		 <span className="small">Hello, user!</span> <a className="btn btn-outline-secondary btn-sm" href="logout" role="button">Sign Out</a>
 	 </div>
     if (!props.isLoggedIn) {
         buttons = <div>

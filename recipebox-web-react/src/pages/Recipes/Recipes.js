@@ -1,26 +1,39 @@
 import React from "react";
 import axios from 'axios';
 import auth from "../../auth";
+import Loader from "../../layout/Loader";
+import RecipeItem from "./RecipeItem";
 
 class Recipes extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			content: ''
+			recipes: <Loader />
 		}
 	}
 
 	componentDidMount() {
 		axios.post('/recipes', {}, { headers: auth.getAuthHeader() })
 			.then(response => {
-				this.setState({content: response.data});
+				const listItems = response.data.map((d) => <RecipeItem recipe={d} />);
+				this.setState({recipes: listItems});
 		});
 	}
 
 	render() {
 		return (
-			<div>
-				{this.state.content}
+			<div className="container rounded">
+				<div className="row bg-secondary rounded-top">
+					<div className="col-sm text-left my-auto p-2 font-weight-bold text-white">
+						&nbsp;
+					</div>
+					<div className="col-sm text-right my-auto p-2">
+						<a className="btn btn-primary btn-sm" href="#" role="button">+ New</a>
+					</div>
+				</div>
+				{ this.state.recipes }
+				<div className="row bg-secondary rounded-bottom p-2">
+				</div>
 			</div>
 		);
 	}

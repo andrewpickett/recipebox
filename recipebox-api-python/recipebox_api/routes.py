@@ -3,6 +3,8 @@ from flask_cors import CORS
 
 from main import app
 from recipebox_api.security import RecipeBoxAuthenticator
+import recipebox_api.services
+import jsonpickle
 from pdsecurity.jwt_utils import protect_with_jwt
 
 from pdsecurity_config import pdsecurity_config
@@ -32,7 +34,7 @@ def perform_login():
 @app.route('/recipes', methods=['POST'])
 @protect_with_jwt
 def recipe_box():
-	return "This is a protected page: your personal recipe box."
+	return jsonpickle.encode(recipebox_api.services.get_recipes(None))
 
 
 @app.route('/planner', methods=['POST'])

@@ -1,12 +1,13 @@
 import React from "react";
 import axios from "axios";
 import auth from "../../auth";
+import Loader from "../../layout/Loader";
 
 class Planner extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			content: ''
+			content: <Loader />
 		}
 	}
 
@@ -19,8 +20,18 @@ class Planner extends React.Component {
 
 	render() {
 		return (
-			<div>
-				{this.state.content}
+			<div className="container rounded">
+				<div className="row bg-secondary rounded-top">
+					<div className="col-sm text-left my-auto p-2 font-weight-bold text-white">
+						&nbsp;
+					</div>
+					<div className="col-sm text-right my-auto p-2">
+						&nbsp;
+					</div>
+				</div>
+				{ this.state.content }
+				<div className="row bg-secondary rounded-bottom p-2">
+				</div>
 			</div>
 		);
 	}
