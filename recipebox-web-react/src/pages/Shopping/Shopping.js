@@ -20,7 +20,7 @@ class Shopping extends React.Component {
 
 	render() {
 		return (
-			<div className="container rounded">
+			<div className="container rounded border">
 				<div className="row bg-secondary rounded-top">
 					<div className="col-sm text-left my-auto p-2 font-weight-bold text-white">
 						&nbsp;

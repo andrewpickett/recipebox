@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios';
 import auth from "../../auth";
 import Loader from "../../layout/Loader";
-import RecipeItem from "./RecipeItem";
+import RecipeListItem from "./RecipeListItem";
 
 class Recipes extends React.Component {
 	constructor(props) {
@@ -15,14 +15,14 @@ class Recipes extends React.Component {
 	componentDidMount() {
 		axios.post('/recipes', {}, { headers: auth.getAuthHeader() })
 			.then(response => {
-				const listItems = response.data.map((d) => <RecipeItem key={d.id} recipe={d} />);
+				const listItems = response.data.map((d) => <RecipeListItem key={d.id} recipe={d} />);
 				this.setState({recipes: listItems});
 		});
 	}
 
 	render() {
 		return (
-			<div className="container rounded">
+			<div className="container rounded border">
 				<div className="row bg-secondary rounded-top">
 					<div className="col-sm text-left my-auto p-2 font-weight-bold text-white">
 						&nbsp;

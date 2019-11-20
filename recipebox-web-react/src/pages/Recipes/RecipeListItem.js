@@ -1,19 +1,23 @@
 import React from "react";
+import RecipeTagList from "./RecipeTagList";
 
-function RecipeItem(props) {
+function RecipeListItem(props) {
 	let recipe = props.recipe;
 	return (
 		<div className="row p-2 border-bottom">
+			<div className="col-sm-auto">
+				<img src="/images/recipebox.svg" className="rounded" height="48" />
+			</div>
 			<div className="col">
 				<div className="row">
 					<div className="col font-weight-bold">{recipe.name}</div>
 				</div>
 				<div className="row">
-					<div className="col font-italic">{recipe.description ? recipe.description : ' - '}</div>
+					<RecipeTagList tags={recipe.tags ? recipe.tags : []} />
 				</div>
 			</div>
 		</div>
 	);
 }
 
-export default RecipeItem;
+export default RecipeListItem;
