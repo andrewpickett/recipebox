@@ -31,19 +31,11 @@ def perform_login():
 	return resp
 
 
-# @app.route('/user', methods=['GET'])
-# @protect_with_jwt
-# def get_user_by_id():
-# 	jwt_obj = get_jwt_object_from_request(request)
-# 	if jwt_obj and jwt_obj['userId']:
-# 		return recipebox_api.services.get_user_by_id(jwt_obj['userId'])
-# 	return make_response("Couldn't get user", 500)
-
-
 @app.route('/recipes', methods=['POST'])
 @protect_with_jwt
 def recipe_box():
-	return jsonpickle.encode(recipebox_api.services.get_recipes(None))
+	jwt_obj = get_jwt_object_from_request(request)
+	return jsonpickle.encode(recipebox_api.services.get_recipes(jwt_obj['userId']), unpicklable=False)
 
 
 @app.route('/planner', methods=['POST'])

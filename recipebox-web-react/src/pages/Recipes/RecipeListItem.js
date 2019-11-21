@@ -3,10 +3,11 @@ import RecipeTagList from "./RecipeTagList";
 
 function RecipeListItem(props) {
 	let recipe = props.recipe;
+	console.log("Recipe: " + recipe);
 	return (
 		<div className="row p-2 border-bottom">
 			<div className="col-sm-auto">
-				<img src="/images/recipebox.svg" className="rounded" height="48" />
+				<img src={recipe.image_url} className="rounded-circle" height="48" />
 			</div>
 			<div className="col">
 				<div className="row">

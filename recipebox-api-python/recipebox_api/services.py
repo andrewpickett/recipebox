@@ -1,18 +1,22 @@
-from recipebox_api.models import RecipeBoxUser, Recipe
-
-
-def perform_login(name, password):
-	return RecipeBoxUser(user_id=1, name=name, email='picketta@gmail.com', password=password)
+import recipebox_api.database
+from recipebox_api.models import Recipe
 
 
 def get_user_by_id(user_id):
-	return RecipeBoxUser(user_id=user_id, name='Andrew', email='picketta@gmail.com', password='')
+	return recipebox_api.database.find_user_by_id(user_id)
 
 
-def get_recipes(user):
-	recipes = [
-		Recipe(recipe_id=1, user_id=1, name='Apple Pie', tags=['dessert', 'pie']),
-		Recipe(recipe_id=2, user_id=1, name='Cajun Chicken Pasta', tags=['main dish', 'chicken', 'spicy', 'cajun']),
-		Recipe(recipe_id=3, user_id=1, name='Easy Mexican Casserole', tags=['main dish', 'casserole', 'mexican'])
-	]
+def get_user_by_name(name):
+	return recipebox_api.database.find_user_by_name(name)
+
+
+def get_recipes(user_id):
+	recipes = recipebox_api.database.find_recipes_for_user(user_id)
+	recipes.sort()
+
+	# TODO: Make tags a part of the main call, not like this...
+	for recipe in recipes:
+		recipe.tags = recipebox_api.database.find_tags_for_recipe(recipe.id)
+		recipe.tags.sort()
+
 	return recipes

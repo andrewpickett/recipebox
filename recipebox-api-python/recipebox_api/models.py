@@ -29,9 +29,10 @@ class Recipe:
 		notes: Any additional notes for the recipe
 		yield_amt: The number of services this recipe makes
 	"""
+	DEFAULT_IMAGE_URL = 'https://profound-distortion-recipebox.s3.amazonaws.com/recipebox.svg'
 
-	def __init__(self, recipe_id=None, user_id=None, name=None, description=None, ingredients=None, instructions=None,
-					 notes=None, yield_amt=None, tags=[]):
+	def __init__(self, recipe_id=None, user_id=None, name=None, image_url=DEFAULT_IMAGE_URL, description=None,
+					 ingredients=None, instructions=None, notes=None, yield_amt=None, tags=[]):
 		self.id = int(recipe_id)
 		self.user = ApplicationUser(user_id=user_id)
 		self.name = name
@@ -41,6 +42,10 @@ class Recipe:
 		self.notes = notes
 		self.yield_amt = yield_amt
 		self.tags = tags
+		if not image_url or image_url == '':
+			self.image_url = self.DEFAULT_IMAGE_URL
+		else:
+			self.image_url = image_url
 
 	def add_tag(self, tag):
 		if not self.tags:
@@ -52,6 +57,11 @@ class Recipe:
 	def __str__(self):
 		return "Recipe(id=%s, name=%)" % (self.id, self.name)
 
+	def __lt__(self, other):
+		if other:
+			return self.name < other.name
+		return False
+
 
 class RecipeTag:
 
@@ -61,3 +71,8 @@ class RecipeTag:
 
 	def __str__(self):
 		return "RecipeTag(id=%s, name=%)" % (self.id, self.name)
+
+	def __lt__(self, other):
+		if other:
+			return self.name < other.name
+		return False
