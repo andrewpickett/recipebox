@@ -10,6 +10,10 @@ def get_user_by_name(name):
 	return recipebox_api.database.find_user_by_name(name)
 
 
+def get_user_by_email(email):
+	return recipebox_api.database.find_user_by_email(email)
+
+
 def get_recipes(user_id):
 	recipes = recipebox_api.database.find_recipes_for_user(user_id)
 	recipes.sort()

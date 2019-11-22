@@ -4,26 +4,27 @@ import recipebox_api.queries
 from recipebox_api.models import RecipeBoxUser, Recipe
 
 
-def find_user_by_id(user_id):
+def _find_user(query, param):
 	user = None
 	with mysql_db.open_db_connection() as cur:
-		cur.execute(recipebox_api.queries.FIND_USER_BY_ID, (user_id,))
+		cur.execute(query, (param,))
 		user_data = cur.fetchone()
 		if user_data:
 			user = RecipeBoxUser(*user_data)
 
 	return user
+
+
+def find_user_by_id(user_id):
+	return _find_user(recipebox_api.queries.FIND_USER_BY_ID, user_id)
 
 
 def find_user_by_name(name):
-	user = None
-	with mysql_db.open_db_connection() as cur:
-		cur.execute(recipebox_api.queries.FIND_USER_BY_NAME, (name,))
-		user_data = cur.fetchone()
-		if user_data:
-			user = RecipeBoxUser(*user_data)
+	return _find_user(recipebox_api.queries.FIND_USER_BY_NAME, name)
 
-	return user
+
+def find_user_by_email(email):
+	return _find_user(recipebox_api.queries.FIND_USER_BY_EMAIL, email)
 
 
 def find_recipes_for_user(user_id):

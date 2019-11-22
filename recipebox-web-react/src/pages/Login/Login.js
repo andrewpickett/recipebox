@@ -4,15 +4,23 @@ import auth from "../../auth";
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {value: ''};
+		this.state = {name: '', password: ''};
 
+		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	handleChange(event) {
+		const target = event.target;
+
+		this.setState({
+			[target.name]: target.value
+		});
 	}
 
 	handleSubmit(event) {
 		event.preventDefault();
-		// TODO: Fix this
-		auth.login({name: 'Andrew', password: 'darkstar'}, '/recipes');
+		auth.login(this.state, '/recipes');
 	}
 
 	render() {
@@ -21,8 +29,8 @@ class Login extends React.Component {
 				<div className="mx-auto">
 					<form className="form-signin" onSubmit={this.handleSubmit}>
 						<div className="form-group row">
-							<input type="text" className="form-control form-control-lg" placeholder="Name" required="required" autoFocus="autofocus" autoComplete="off" />
-							<input type="password" className="form-control form-control-lg" placeholder="Password" required="required" />
+							<input type="text" name="name" className="form-control form-control-lg" placeholder="Email" required="required" autoFocus="autofocus" autoComplete="off" onChange={this.handleChange} value={this.state.name} />
+							<input type="password" name="password" className="form-control form-control-lg" placeholder="Password" required="required" onChange={this.handleChange} value={this.state.password} />
 						</div>
 
 						<div className="form-group row">

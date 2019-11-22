@@ -15,8 +15,7 @@ axios.interceptors.response.use(
 
 export default {
 	user: {
-		authenticated: false,
-		admin: false
+		authenticated: false
 	},
 
 	login(creds, redirect) {
@@ -24,7 +23,6 @@ export default {
 			.then(response => {
 				sessionStorage.setItem(config.JWT_STORAGE_KEY, response.headers.authorization);
 				sessionStorage.setItem(config.USER_STORAGE_KEY, response.data['name']);
-				console.log(response.data['name']);
 				axios.defaults.headers.post['Authorization'] = response.headers.authorization;
 				this.user.authenticated = true;
 
@@ -41,7 +39,6 @@ export default {
 		sessionStorage.removeItem(config.JWT_STORAGE_KEY);
 		sessionStorage.removeItem(config.USER_STORAGE_KEY);
 		this.user.authenticated = false;
-		this.user.admin = false;
 		window.location = '/';
 	},
 
