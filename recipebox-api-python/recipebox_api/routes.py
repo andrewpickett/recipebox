@@ -11,16 +11,18 @@ from recipebox_api.security import RecipeBoxAuthenticator
 CORS(app, supports_credentials=True, expose_headers=["Authorization", "WWW-Authenticate"])
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/account/create', methods=['POST'])
 def register_user():
-	resp = make_response("")
+	if recipebox_api.services.create_user(request.json) != 1:
+		return make_response(500)
+	return make_response("")
 
 
 @app.route('/login', methods=['POST'])
 def perform_login():
 	try:
 		authenticator = RecipeBoxAuthenticator(pdsecurity_config['jwt'])
-		jwt_token = authenticator.login(request.json["name"], request.json["password"].encode("utf-8"))
+		jwt_token = authenticator.login(request.json["email"], request.json["password"].encode("utf-8"))
 		jwt_obj = _parse_jwt_token(jwt_token)
 		resp = make_response(jsonpickle.encode(recipebox_api.services.get_user_by_id(jwt_obj['userId'])))
 		resp.headers["Authorization"] = str(jwt_token)

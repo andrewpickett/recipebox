@@ -21,4 +21,10 @@ FIND_TAGS_FOR_RECIPE = """
     SELECT id, recipe_id, name FROM recipe_tag WHERE recipe_id = %s ORDER BY name
 """
 
+FIND_NEXT_USER_ID = """
+	SELECT MAX(id) + 1 FROM user
+"""
 
+INSERT_USER = """
+	INSERT INTO user (id, name, email, password) VALUES (%s, %s, %s, %s)
+"""

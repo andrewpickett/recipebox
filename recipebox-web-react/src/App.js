@@ -19,6 +19,7 @@ import auth from './auth';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import config from "./config";
+import CreateAccount from "./pages/Login/CreateAccount";
 
 function App() {
 	auth.checkAuth();
@@ -40,6 +41,7 @@ function App() {
 
 							<Route path="/login" exact={true} component={Login} />
 							<Route path="/logout" exact={true}><Home logout={true} /></Route>
+							<Route path="/account/create" exact={true} component={CreateAccount} />
 
 							<Route path="/" component={Home} />
 						</Switch>

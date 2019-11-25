@@ -27,6 +27,22 @@ def find_user_by_email(email):
 	return _find_user(recipebox_api.queries.FIND_USER_BY_EMAIL, email)
 
 
+def find_next_user_id():
+	with mysql_db.open_db_connection() as cur:
+		cur.execute(recipebox_api.queries.FIND_NEXT_USER_ID)
+		user_id = cur.fetchone()[0]
+
+	return user_id
+
+
+def insert_user(user):
+	with mysql_db.open_db_connection() as cur:
+		cur.execute(recipebox_api.queries.INSERT_USER, (user.id, user.name, user.email, user.password,))
+		ret_count = cur.rowcount
+
+	return ret_count
+
+
 def find_recipes_for_user(user_id):
 	recipes = []
 	with mysql_db.open_db_connection() as cur:

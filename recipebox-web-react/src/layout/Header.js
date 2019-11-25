@@ -11,7 +11,7 @@ function Header(props) {
         buttons = <div>
             <a className="btn btn-outline-secondary btn-sm" href="/login" role="button">Sign In</a>
             &nbsp;
-            <a className="btn btn-outline-secondary btn-sm" href="/logout" role="button">Sign Up</a>
+            <a className="btn btn-outline-secondary btn-sm" href="/account/create" role="button">Sign Up</a>
         </div>
     }
 

@@ -4,7 +4,7 @@ import auth from "../../auth";
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {name: '', password: ''};
+		this.state = {email: '', password: ''};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,19 +25,22 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<div className="row">
-				<div className="mx-auto">
-					<form className="form-signin" onSubmit={this.handleSubmit}>
-						<div className="form-group row">
-							<input type="text" name="name" className="form-control form-control-lg" placeholder="Email" required="required" autoFocus="autofocus" autoComplete="off" onChange={this.handleChange} value={this.state.name} />
-							<input type="password" name="password" className="form-control form-control-lg" placeholder="Password" required="required" onChange={this.handleChange} value={this.state.password} />
+			<div className="mx-auto col-7">
+				<form method="POST" onSubmit={this.handleSubmit}>
+					<div className="form-group row">
+						<label htmlFor="email" className="col-sm-2 col-form-label">Email</label>
+						<div className="col-sm-10">
+							<input type="email" className="form-control" id="email" name="email" placeholder="Email" autoFocus="autoFocus" autoComplete="off" required="required" onChange={this.handleChange} value={this.state.name} />
 						</div>
-
-						<div className="form-group row">
-							<button type="submit" className="btn btn-lg btn-primary btn-block">Sign in</button>
+					</div>
+					<div className="form-group row">
+						<label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+						<div className="col-sm-10">
+							<input type="password" className="form-control" id="password" name="password" placeholder="Password" required="required" onChange={this.handleChange} value={this.state.password} />
 						</div>
-					</form>
-				</div>
+					</div>
+					<button type="submit" className="btn btn-primary btn-block mx-auto col-4">Sign in</button>
+				</form>
 			</div>
 		);
 	}
