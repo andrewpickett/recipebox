@@ -16,7 +16,11 @@ class Recipes extends React.Component {
 		axios.post('/recipes', {}, { headers: auth.getAuthHeader() })
 			.then(response => {
 				const listItems = response.data.map((d) => <RecipeListItem key={d.id} recipe={d} />);
-				this.setState({recipes: listItems});
+				if (listItems && listItems.length > 0) {
+					this.setState({recipes: listItems});
+				} else {
+					this.setState({recipes: <div>You have no recipes yet!</div>})
+				}
 		});
 	}
 

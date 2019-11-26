@@ -7,7 +7,9 @@ axios.interceptors.response.use(
 	response => response,
 	error => {
 		if (error.response.status === 401) {
-			window.location = '/logout';
+			if (!error.config.url.endsWith('/login')) {
+				window.location = '/logout';
+			}
 		}
 		return Promise.reject(error);
 	}
@@ -18,8 +20,8 @@ export default {
 		authenticated: false
 	},
 
-	login(creds, redirect) {
-		axios.post('/login', creds, config.AXIOS_CONFIG)
+	login(viewState, redirect) {
+		axios.post('/login', viewState.state, config.AXIOS_CONFIG)
 			.then(response => {
 				sessionStorage.setItem(config.JWT_STORAGE_KEY, response.headers.authorization);
 				sessionStorage.setItem(config.USER_STORAGE_KEY, response.data['name']);
@@ -31,7 +33,7 @@ export default {
 				}
 			})
 			.catch(error => {
-				console.log(error);
+				viewState.setState({'error': error.response.data})
 			});
 	},
 

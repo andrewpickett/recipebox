@@ -4,7 +4,7 @@ import auth from "../../auth";
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {email: '', password: ''};
+		this.state = {email: '', password: '', error: null};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,12 +20,13 @@ class Login extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		auth.login(this.state, '/recipes');
+		auth.login(this, '/recipes');
 	}
 
 	render() {
 		return (
 			<div className="mx-auto col-7">
+				{ this.state.error ? <div className="alert alert-danger" role="alert">{ this.state.error }</div> : null }
 				<form method="POST" onSubmit={this.handleSubmit}>
 					<div className="form-group row">
 						<label htmlFor="email" className="col-sm-2 col-form-label">Email</label>

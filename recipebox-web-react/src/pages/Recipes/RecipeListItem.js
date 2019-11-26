@@ -3,7 +3,6 @@ import RecipeTagList from "./RecipeTagList";
 
 function RecipeListItem(props) {
 	let recipe = props.recipe;
-	console.log("Recipe: " + recipe);
 	return (
 		<div className="row p-2 border-bottom">
 			<div className="col-sm-auto">

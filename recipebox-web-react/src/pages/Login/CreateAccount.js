@@ -22,8 +22,8 @@ class CreateAccount extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		let formData = this.state;
-		axios.post('/account/create', formData, config.AXIOS_CONFIG)
+		let formData = this;
+		axios.post('/account/create', formData.state, config.AXIOS_CONFIG)
 			.then(response => {
 				auth.login(formData, '/recipes');
 			})
