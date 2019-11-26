@@ -67,3 +67,14 @@ def find_tags_for_recipe(recipe_id):
 				tags.append(tag_data[2])
 
 	return tags
+
+
+def find_recipe_by_id(recipe_id):
+	with mysql_db.open_db_connection() as cur:
+		cur.execute(recipebox_api.queries.FIND_RECIPE_BY_ID, (recipe_id,))
+
+		recipe_data = cur.fetchone()
+		if recipe_data:
+			return Recipe(*recipe_data)
+
+	return None

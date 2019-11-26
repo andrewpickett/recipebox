@@ -40,6 +40,12 @@ def recipe_box():
 	return jsonpickle.encode(recipebox_api.services.get_recipes(jwt_obj['userId']), unpicklable=False)
 
 
+@app.route('/recipes/<recipe_id>', methods=['POST'])
+@protect_with_jwt
+def recipe_details(recipe_id):
+	return jsonpickle.encode(recipebox_api.services.get_recipe(recipe_id), unpicklable=False)
+
+
 @app.route('/planner', methods=['POST'])
 @protect_with_jwt
 def planner():

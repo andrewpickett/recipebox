@@ -38,6 +38,7 @@ class Recipe:
 		self.name = name
 		self.description = description
 		self.ingredients = ingredients
+		self.ingredient_list = self._get_ingredient_list()
 		self.instructions = instructions
 		self.notes = notes
 		self.yield_amt = yield_amt
@@ -53,6 +54,10 @@ class Recipe:
 
 		if tag not in self.tags:
 			self.tags.append(tag)
+
+	def _get_ingredient_list(self):
+		if self.ingredients:
+			return self.ingredients.split('\n')
 
 	def __str__(self):
 		return "Recipe(id=%s, name=%)" % (self.id, self.name)

@@ -21,6 +21,12 @@ FIND_TAGS_FOR_RECIPE = """
     SELECT id, recipe_id, name FROM recipe_tag WHERE recipe_id = %s ORDER BY name
 """
 
+FIND_RECIPE_BY_ID = """
+	SELECT id, user_id, name, image_url, description, ingredients, instructions, notes, yield
+	  FROM recipe
+	 WHERE id = %s
+"""
+
 FIND_NEXT_USER_ID = """
 	SELECT MAX(id) + 1 FROM user
 """

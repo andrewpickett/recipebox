@@ -2,6 +2,7 @@ import recipebox_api.database
 from recipebox_api.models import Recipe
 import bcrypt
 
+
 def get_user_by_id(user_id):
 	return recipebox_api.database.find_user_by_id(user_id)
 
@@ -31,3 +32,7 @@ def get_recipes(user_id):
 		recipe.tags.sort()
 
 	return recipes
+
+
+def get_recipe(recipe_id):
+	return recipebox_api.database.find_recipe_by_id(recipe_id)
