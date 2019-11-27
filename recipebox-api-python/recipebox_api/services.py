@@ -35,4 +35,7 @@ def get_recipes(user_id):
 
 
 def get_recipe(recipe_id):
-	return recipebox_api.database.find_recipe_by_id(recipe_id)
+	recipe = recipebox_api.database.find_recipe_by_id(recipe_id)
+	recipe.tags = recipebox_api.database.find_tags_for_recipe(recipe_id)
+	recipe.tags.sort()
+	return recipe

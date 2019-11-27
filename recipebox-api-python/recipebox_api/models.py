@@ -40,6 +40,7 @@ class Recipe:
 		self.ingredients = ingredients
 		self.ingredient_list = self._get_ingredient_list()
 		self.instructions = instructions
+		self.instruction_list = self._get_instruction_list()
 		self.notes = notes
 		self.yield_amt = yield_amt
 		self.tags = tags
@@ -58,6 +59,10 @@ class Recipe:
 	def _get_ingredient_list(self):
 		if self.ingredients:
 			return self.ingredients.split('\n')
+
+	def _get_instruction_list(self):
+		if self.instructions:
+			return self.instructions.split('\n')
 
 	def __str__(self):
 		return "Recipe(id=%s, name=%)" % (self.id, self.name)
