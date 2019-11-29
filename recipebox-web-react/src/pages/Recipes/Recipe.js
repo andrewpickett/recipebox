@@ -10,8 +10,13 @@ class Recipe extends React.Component {
 		let id = this.props.match.params.recipe_id;
 		this.state = {
 			recipe_id: id,
+			scalar: 1,
 			recipe: {}
 		}
+
+		this.moveSlider = this.moveSlider.bind(this);
+		this.scaleIngredient = this.scaleIngredient.bind(this);
+		this.convertIngredient = this.convertIngredient.bind(this);
 	}
 
 	componentDidMount() {
@@ -24,15 +29,30 @@ class Recipe extends React.Component {
 	convertIngredient(i) {
 		let idx = i.slice().search(/[a-zA-Z]/);
 		if (idx > 0) {
-			return <div><span className="font-weight-bold ingredient-quantity">{i.substring(0, idx)}</span>{i.substring(idx)}</div>;
+			let quantity = i.substring(0, idx).trim();
+			return <div onClick={this.scaleIngredient}><span className="font-weight-bold ingredient-quantity">{quantity}</span> {i.substring(idx)}</div>;
 		} else {
 			return i;
 		}
 	}
 
+	moveSlider(event) {
+		const target = event.target;
+		this.setState({
+			scalar: target.value
+		});
+	}
+
+	scaleIngredient(event) {
+		axios.post('/recipes/' + this.state.recipe_id + '/scale', {scale: this.state.scalar}, { headers: auth.getAuthHeader() })
+			.then(response => {
+				this.setState({recipe: response.data});
+			});
+	}
+
 	render() {
-		let ingredients = this.state.recipe.ingredient_list ? this.state.recipe.ingredient_list.map((d) => <li key={d.id}>{this.convertIngredient(d)}</li>) : null;
-		let instructions = this.state.recipe.instruction_list ? this.state.recipe.instruction_list.map((d) => <li key={d.id}>{d}</li>) : null;
+		let ingredients = this.state.recipe.ingredient_list ? this.state.recipe.ingredient_list.map((d) => <li key={d}>{this.convertIngredient(d)}</li>) : null;
+		let instructions = this.state.recipe.instruction_list ? this.state.recipe.instruction_list.map((d) => <li key={d}>{d}</li>) : null;
 		let notes = null;
 		return (
 			<div className="container rounded border">
@@ -63,6 +83,12 @@ class Recipe extends React.Component {
 						<ul>
 							{ingredients}
 						</ul>
+					</div>
+					<div className="col">
+						<label htmlFor="customRange3">Scale Recipe: x{this.state.scalar}</label>
+						<input type="range" className="custom-range" min="0.125" max="8" step="0.125" id="customRange3" onChange={this.moveSlider} onMouseUp={this.scaleIngredient} value={this.state.scalar} />
+					</div>
+					<div className="col-6">
 					</div>
 				</div>
 				<div className="row">

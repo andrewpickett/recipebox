@@ -3,6 +3,9 @@ from flask import redirect, request, make_response
 from flask_cors import CORS
 from pdsecurity.jwt_utils import protect_with_jwt, get_jwt_object_from_request, _parse_jwt_token
 
+import re
+from fractions import Fraction
+
 import recipebox_api.services
 from main import app
 from pdsecurity_config import pdsecurity_config
@@ -44,6 +47,16 @@ def recipe_box():
 @protect_with_jwt
 def recipe_details(recipe_id):
 	return jsonpickle.encode(recipebox_api.services.get_recipe(recipe_id), unpicklable=False)
+
+
+@app.route('/recipes/<recipe_id>/scale', methods=['POST'])
+@protect_with_jwt
+def scale_recipe(recipe_id):
+	recipe = recipebox_api.services.get_recipe(recipe_id)
+	scale = request.get_json()['scale']
+
+	recipebox_api.services.scale_ingredients(recipe, scale, False)
+	return jsonpickle.encode(recipe, unpicklable=False)
 
 
 @app.route('/planner', methods=['POST'])
